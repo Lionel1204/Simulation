@@ -88,7 +88,6 @@
               "text/plain" : {
                 "schema" : {
                   "type" : "string",
-                  "format" : "uuid",
                   "example" : "dc86c480-eb05-47cc-8823-491a68b6d232"
                 }
               }
