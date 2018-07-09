@@ -197,6 +197,7 @@
           "in" : "formData",
           "name" : "code",
           "description" : "A piece of code to submit",
+          "required" : true,
           "schema" : {
             "type" : "string"
           }
