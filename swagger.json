@@ -88,6 +88,7 @@
               "text/plain" : {
                 "schema" : {
                   "type" : "string",
+                  "format" : "uuid",
                   "example" : "dc86c480-eb05-47cc-8823-491a68b6d232"
                 }
               }
@@ -191,8 +192,9 @@
         "summary" : "submit code and run it",
         "operationId" : "runSimulation",
         "description" : "Submit the code of users and return the result",
+        "consumes" : [ "multipart/form-data" ],
         "parameters" : [ {
-          "in" : "form",
+          "in" : "formData",
           "name" : "code",
           "description" : "A piece of code to submit",
           "schema" : {
