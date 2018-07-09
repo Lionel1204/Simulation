@@ -55,7 +55,7 @@
             "schema" : {
               "type" : "array",
               "items" : {
-                "$ref" : "#/definitions/AlgorithmListItem"
+                "$ref" : "#/definitions/algorithmListItem"
               }
             }
           },
@@ -73,13 +73,12 @@
         "operationId" : "addAlgorithm",
         "description" : "Adds a new algorithm item",
         "consumes" : [ "application/json" ],
-        "produces" : [ "application/json" ],
         "parameters" : [ {
           "in" : "body",
           "name" : "algorithmItem",
           "description" : "Algorithm item to add",
           "schema" : {
-            "$ref" : "#/definitions/AlgorithmItem"
+            "$ref" : "#/definitions/algorithmItem"
           }
         } ],
         "responses" : {
@@ -121,11 +120,12 @@
         "summary" : "get a algorithm item by id",
         "operationId" : "getAlgorithm",
         "description" : "Get a algorithm item by id",
+        "produces" : [ "application/json" ],
         "responses" : {
           "200" : {
             "description" : "an algorithm body",
             "schema" : {
-              "$ref" : "#/definitions/AlgorithmItem"
+              "$ref" : "#/definitions/algorithmItem"
             }
           },
           "401" : {
@@ -148,12 +148,12 @@
           "name" : "algorithmItem",
           "description" : "Algorithm item to update",
           "schema" : {
-            "$ref" : "#/definitions/AlgorithmItem"
+            "$ref" : "#/definitions/algorithmItem"
           }
         } ],
         "responses" : {
           "200" : {
-            "description" : "item created"
+            "description" : "item updated"
           },
           "400" : {
             "description" : "invalid input, object invalid"
@@ -228,12 +228,30 @@
         "description" : "the id of algorithm"
       } ],
       "get" : {
-        "tags" : "simulation"
+        "tags" : [ "simulation" ],
+        "summary" : "get the simulation result",
+        "operationId" : "getSimulationResult",
+        "description" : "Get the simulation result",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "an algorithm body",
+            "schema" : {
+              "$ref" : "#/definitions/simulationResult"
+            }
+          },
+          "401" : {
+            "description" : "unauthorized"
+          },
+          "404" : {
+            "description" : "result is not found"
+          }
+        }
       }
     }
   },
   "definitions" : {
-    "AlgorithmListItem" : {
+    "algorithmListItem" : {
       "type" : "object",
       "required" : [ "id", "name", "localizedId", "category" ],
       "properties" : {
@@ -256,7 +274,7 @@
         }
       }
     },
-    "AlgorithmItem" : {
+    "algorithmItem" : {
       "type" : "object",
       "required" : [ "id", "name", "content", "sampleCode" ],
       "properties" : {
@@ -315,7 +333,8 @@
           "example" : "import numpy as np"
         }
       }
-    }
+    },
+    "simulationResult" : null
   },
   "host" : "virtserver.swaggerhub.com",
   "basePath" : "/Lionel1204/SimCalculation/1.0.0",
