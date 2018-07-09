@@ -206,9 +206,9 @@
             "text/plain" : {
               "schema" : {
                 "type" : "string",
-                "format" : "uuid"
-              },
-              "example" : "dc86c480-eb05-47cc-8823-491a68b6d232"
+                "format" : "uuid",
+                "example" : "dc86c480-eb05-47cc-8823-491a68b6d232"
+              }
             }
           },
           "400" : {
@@ -347,7 +347,8 @@
           "example" : "2d12c758-440a-4940-b23f-f362005be02e"
         },
         "result" : {
-          "type" : "string"
+          "type" : "string",
+          "example" : "some output from code"
         }
       }
     }
