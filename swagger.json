@@ -221,10 +221,10 @@
         }
       }
     },
-    "/simulations/{simulation_id}/result" : {
+    "/simulations/{simulationId}/result" : {
       "parameters" : [ {
         "in" : "path",
-        "name" : "algorithmId",
+        "name" : "simulationId",
         "schema" : {
           "type" : "string",
           "format" : "uuid"
