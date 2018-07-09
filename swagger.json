@@ -1,3 +1,276 @@
 {
-  "swagger" : "2.0"
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "This APIs doc is for describe all of operation for simulation calculation systems",
+    "version" : "1.0.0",
+    "title" : "Simulation system API",
+    "contact" : {
+      "email" : "lionel12@163.com"
+    },
+    "license" : {
+      "name" : "Apache 2.0",
+      "url" : "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "tags" : [ {
+    "name" : "algorithms",
+    "description" : "To manage the algorithms for simulation"
+  }, {
+    "name" : "simulation",
+    "description" : "To submit code and get the calculation results"
+  } ],
+  "paths" : {
+    "/algorithms" : {
+      "get" : {
+        "tags" : [ "algorithms" ],
+        "summary" : "To List Algorithms",
+        "operationId" : "listAlgorithms",
+        "description" : "User can list all of algorithms in pagination way. There are some params can be used for filtering.\n",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "query",
+          "name" : "queryString",
+          "description" : "pass an optional search string for looking up inventory",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "in" : "query",
+          "name" : "offset",
+          "description" : "number of records to skip for pagination, default value is 0",
+          "type" : "integer",
+          "format" : "int32",
+          "minimum" : 0
+        }, {
+          "in" : "query",
+          "name" : "limit",
+          "description" : "maximum number of records to return, default value is 10",
+          "type" : "integer",
+          "format" : "int32",
+          "minimum" : 0,
+          "maximum" : 50
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "list results matching criteria，it might a empty array with no items",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/AlgorithmListItem"
+              }
+            }
+          },
+          "400" : {
+            "description" : "bad input parameter"
+          },
+          "401" : {
+            "description" : "unauthorized"
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "algorithms" ],
+        "summary" : "adds an algorithm item",
+        "operationId" : "addAlgorithm",
+        "description" : "Adds a new algorithm item",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "algorithmItem",
+          "description" : "Algorithm item to add",
+          "schema" : {
+            "$ref" : "#/definitions/AlgorithmItem"
+          }
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "created",
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "dc86c480-eb05-47cc-8823-491a68b6d232"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "invalid input, object invalid"
+          },
+          "401" : {
+            "description" : "unauthorized"
+          },
+          "409" : {
+            "description" : "an existing algorithm already exists"
+          }
+        }
+      }
+    },
+    "/algorithms/{algorithmId}" : {
+      "parameters" : [ {
+        "in" : "path",
+        "name" : "algorithmId",
+        "schema" : {
+          "type" : "string"
+        },
+        "required" : true,
+        "description" : "the id of algorithm"
+      } ],
+      "get" : {
+        "tags" : [ "algorithms" ],
+        "summary" : "get a algorithm item by id",
+        "operationId" : "getAlgorithm",
+        "description" : "Get a algorithm item by id",
+        "responses" : {
+          "200" : {
+            "description" : "an algorithm body",
+            "schema" : {
+              "$ref" : "#/definitions/AlgorithmItem"
+            }
+          },
+          "401" : {
+            "description" : "unauthorized"
+          },
+          "404" : {
+            "description" : "algorithm is not found"
+          }
+        }
+      },
+      "patch" : {
+        "tags" : [ "algorithms" ],
+        "summary" : "update the algorithm item",
+        "operationId" : "updateAlgorithm",
+        "description" : "Update the existed algorithm item",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "algorithmItem",
+          "description" : "Algorithm item to update",
+          "schema" : {
+            "$ref" : "#/definitions/AlgorithmItem"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "item created"
+          },
+          "400" : {
+            "description" : "invalid input, object invalid"
+          },
+          "401" : {
+            "description" : "unauthorized"
+          },
+          "404" : {
+            "description" : "algorithm not found"
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "algorithms" ],
+        "summary" : "delete an algorithm item",
+        "operationId" : "deleteAlgorithm",
+        "description" : "Delete an existed algorithm item",
+        "responses" : {
+          "204" : {
+            "description" : "no content"
+          },
+          "401" : {
+            "description" : "unauthorized"
+          },
+          "404" : {
+            "description" : "algorithm item not found"
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "AlgorithmListItem" : {
+      "type" : "object",
+      "required" : [ "id", "name", "localizedId", "category" ],
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "format" : "uuid",
+          "example" : "d290f1ee-6c54-4b01-90e6-d701748f0851"
+        },
+        "name" : {
+          "type" : "string",
+          "example" : "Linear regression"
+        },
+        "localizedId" : {
+          "type" : "string",
+          "example" : "LINEAR_REGRESSION"
+        },
+        "category" : {
+          "type" : "string",
+          "example" : "Numerical Analysis"
+        }
+      }
+    },
+    "AlgorithmItem" : {
+      "type" : "object",
+      "required" : [ "id", "name", "content", "sampleCode" ],
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "format" : "uuid",
+          "example" : "d290f1ee-6c54-4b01-90e6-d701748f0851"
+        },
+        "name" : {
+          "type" : "string",
+          "example" : "Liner regression"
+        },
+        "localizedId" : {
+          "type" : "string",
+          "example" : "LINER_REGRESSION"
+        },
+        "category" : {
+          "type" : "string",
+          "example" : "Numerical Analysis"
+        },
+        "description" : {
+          "type" : "string",
+          "example" : "In statistics, linear regression is a linear approach to modelling the relationship between a scalar response (or dependent variable) and one or more explanatory variables (or independent variables)."
+        },
+        "content" : {
+          "$ref" : "#/definitions/content"
+        },
+        "sampleCode" : {
+          "$ref" : "#/definitions/sampleCode"
+        }
+      }
+    },
+    "content" : {
+      "required" : [ "name" ],
+      "properties" : {
+        "name" : {
+          "type" : "string",
+          "example" : "Linear Regression"
+        },
+        "urn" : {
+          "type" : "string",
+          "format" : "url",
+          "example" : "https://www.acme-corp.com"
+        },
+        "text" : {
+          "type" : "string",
+          "example" : "This is the details description for the content."
+        }
+      }
+    },
+    "sampleCode" : {
+      "required" : [ "id" ],
+      "properties" : {
+        "code" : {
+          "type" : "string",
+          "example" : "import numpy as np"
+        }
+      }
+    }
+  },
+  "host" : "virtserver.swaggerhub.com",
+  "basePath" : "/Lionel1204/SimCalculation/1.0.0",
+  "schemes" : [ "https" ]
 }
