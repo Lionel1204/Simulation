@@ -88,6 +88,7 @@
               "text/plain" : {
                 "schema" : {
                   "type" : "string",
+                  "format" : "uuid",
                   "example" : "dc86c480-eb05-47cc-8823-491a68b6d232"
                 }
               }
@@ -110,7 +111,8 @@
         "in" : "path",
         "name" : "algorithmId",
         "schema" : {
-          "type" : "string"
+          "type" : "string",
+          "format" : "uuid"
         },
         "required" : true,
         "description" : "the id of algorithm"
@@ -203,7 +205,8 @@
             "description" : "created",
             "text/plain" : {
               "schema" : {
-                "type" : "string"
+                "type" : "string",
+                "format" : "uuid"
               },
               "example" : "dc86c480-eb05-47cc-8823-491a68b6d232"
             }
@@ -222,7 +225,8 @@
         "in" : "path",
         "name" : "algorithmId",
         "schema" : {
-          "type" : "string"
+          "type" : "string",
+          "format" : "uuid"
         },
         "required" : true,
         "description" : "the id of algorithm"
@@ -334,7 +338,19 @@
         }
       }
     },
-    "simulationResult" : null
+    "simulationResult" : {
+      "required" : [ "id" ],
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "format" : "uuid",
+          "example" : "2d12c758-440a-4940-b23f-f362005be02e"
+        },
+        "result" : {
+          "type" : "string"
+        }
+      }
+    }
   },
   "host" : "virtserver.swaggerhub.com",
   "basePath" : "/Lionel1204/SimCalculation/1.0.0",
